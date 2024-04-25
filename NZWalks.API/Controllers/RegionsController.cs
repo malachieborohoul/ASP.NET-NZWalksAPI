@@ -121,18 +121,20 @@ namespace NZWalks.API.Controllers
         {
             var regionDomainModel = await _regionRepository.DeleteAsync(id);
 
-            if (regionDomainModel != null)
+            if (regionDomainModel == null)
             {
-                var regionDto = new RegionDto()
+                return NotFound();
+            } 
+            var regionDto = new RegionDto()
                 {
                     Id = regionDomainModel.Id,
                     Code = regionDomainModel.Code,
                     Name = regionDomainModel.Name,
                     RegionImageUrl = regionDomainModel.RegionImageUrl
                 };
-            }
+            
 
-            return Ok(regionDomainModel);
+            return Ok(regionDto);
         }
         
          
